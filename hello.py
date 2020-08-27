@@ -12,7 +12,8 @@ from mylib.myadd import add
 def calculate(value1, value2):
     result = add(value1, value2)
     click.echo({result})
-if __name__ == '__main__':
-    #pylint: disable=no-value-for-parameter
-    calculate()
 
+
+if __name__ == '__main__':
+    # pylint: disable=no-value-for-parameter
+    calculate()

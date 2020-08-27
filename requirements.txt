@@ -1,5 +1,6 @@
 pylint
 ipython
 pytest
+pytest-cov
 click
 flask

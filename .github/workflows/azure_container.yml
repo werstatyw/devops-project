@@ -46,8 +46,8 @@ jobs:
     - uses: azure/k8s-deploy@v1
       with:
         manifests: |
-          manifests/deployment.yml
-          manifests/service.yml
+          manifests/deployment.yaml
+          manifests/service.yaml
         images: |
           simplewersjs.azurecr.io/simplewersjs:${{ github.sha }}
         imagepullsecrets: |

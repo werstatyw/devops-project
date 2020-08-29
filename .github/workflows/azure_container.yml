@@ -48,6 +48,8 @@ jobs:
         manifests: |
           manifests/deployment.yml
           manifests/service.yml
+        images: |
+          demo.azurecr.io/k8sdemo:${{ github.sha }}
         imagepullsecrets: |
           ${{ env.REGISTRY_NAME }}-registry-connection
         namespace: ${{ env.NAMESPACE }}

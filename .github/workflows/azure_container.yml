@@ -52,11 +52,11 @@ jobs:
 
    
      # Baking the helm chart to generate the manifests to deploy
-   # - uses: azure/k8s-bake@v1
-  #    with:
-   #     renderEngine: 'helm2'
-     #   helm-version: 'latest' 
-   #   id: bake
+    - uses: azure/k8s-bake@v1
+      with:
+       renderEngine: 'helm2'
+       helm-version: 'latest' 
+      id: bake
 
     # Deploy app to AKS
     - uses: azure/k8s-deploy@v1

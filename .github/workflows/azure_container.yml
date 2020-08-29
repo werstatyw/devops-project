@@ -27,14 +27,6 @@ jobs:
         cluster-name: simplewersjs
         resource-group: MyResourceGroup
       #  id: login
- 
- #intialize Helm
-  #  - name: Init Helm
-  #    run: |
-  #      curl https://raw.githubusercontent.com/helm/helm/master/scripts/get-helm-3 > get_helm.sh
-   #     chmod 700 get_helm.sh
-   #     ./get_helm.sh
-   #     az acr helm repo add -n ${{ secrets.REGISTRY_USERNAME }}
         
   # Create namespace if doesn't exist
     - run: |
@@ -49,20 +41,13 @@ jobs:
         secret-name: ${{ env.REGISTRY_NAME }}-registry-connection
         namespace: ${{ env.NAMESPACE }}
      
-    # Baking the helm chart to generate the manifests to deploy
-    - uses: azure/k8s-bake@v1
-      with:
-        renderEngine: 'helm2'
-        helmChart: './my-helm-chart/' 
-        helm-version: 'latest' 
-      id: bake
 
     # Deploy app to AKS
     - uses: azure/k8s-deploy@v1
       with:
-        manifests: ${{ steps.bake.outputs.manifestsBundle }}
-        images: |
-          ${{ env.REGISTRY_NAME }}.azurecr.io/myimage:${{ github.sha }}
+        manifests: |
+          manifests/deployment.yml
+          manifests/service.yml
         imagepullsecrets: |
           ${{ env.REGISTRY_NAME }}-registry-connection
         namespace: ${{ env.NAMESPACE }}

@@ -20,8 +20,8 @@ jobs:
     - uses: Azure/aks-set-context@v1
       with:
         creds: '${{ secrets.AZURE_CREDENTIALS }}'
-        cluster-name: contoso
-        resource-group: contoso-rg
+        cluster-name: erste
+        resource-group: netapp
         
     - uses: Azure/k8s-create-secret@v1
       with:

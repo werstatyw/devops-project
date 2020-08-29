@@ -13,8 +13,8 @@ jobs:
         password: ${{ secrets.REGISTRY_PASSWORD }}
     
     - run: |
-        docker build . -t contoso.azurecr.io/k8sdemo:${{ github.sha }}
-        docker push contoso.azurecr.io/k8sdemo:${{ github.sha }}
+        docker build . -t simplewersjs.azurecr.io/k8sdemo:${{ github.sha }}
+        docker push simplewersjs.azurecr.io/k8sdemo:${{ github.sha }}
       
     # Set the target AKS cluster.
     - uses: Azure/aks-set-context@v1
@@ -25,7 +25,7 @@ jobs:
         
     - uses: Azure/k8s-create-secret@v1
       with:
-        container-registry-url: contoso.azurecr.io
+        container-registry-url: simplewersjs.azurecr.io
         container-registry-username: ${{ secrets.REGISTRY_USERNAME }}
         container-registry-password: ${{ secrets.REGISTRY_PASSWORD }}
         secret-name: demo-k8s-secret

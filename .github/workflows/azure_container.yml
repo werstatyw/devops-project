@@ -24,19 +24,33 @@ jobs:
         resource-group: MyResourceGroup
       #  id: login
         
-    - uses: Azure/k8s-create-secret@v1
+  # Create namespace if doesn't exist
+    - run: |
+        kubectl create namespace ${{ env.NAMESPACE }} --dry-run -o json | kubectl apply -f -
+    
+    # Create imagepullsecret for Azure Container registry (ACR)
+    - uses: azure/k8s-create-secret@v1
       with:
-        container-registry-url: simplewersjs.azurecr.io
+        container-registry-url: ${{ env.REGISTRY_NAME }}.azurecr.io
         container-registry-username: ${{ secrets.REGISTRY_USERNAME }}
         container-registry-password: ${{ secrets.REGISTRY_PASSWORD }}
-        secret-name: demo-k8s-secret
+        secret-name: ${{ env.REGISTRY_NAME }}-registry-connection
+        namespace: ${{ env.NAMESPACE }}
 
-    - uses: Azure/k8s-deploy@v1
+    # Baking the helm chart to generate the manifests to deploy
+    - uses: azure/k8s-bake@v1
       with:
-        manifests: |
-          manifests/deployment.yml
-          manifests/service.yml
+        renderEngine: 'helm2'
+        helmChart: './my-helm-chart/' 
+        helm-version: 'latest' 
+      id: bake
+
+    # Deploy app to AKS
+    - uses: azure/k8s-deploy@v1
+      with:
+        manifests: ${{ steps.bake.outputs.manifestsBundle }}
         images: |
-          demo.azurecr.io/k8sdemo:${{ github.sha }}
+          ${{ env.REGISTRY_NAME }}.azurecr.io/myimage:${{ github.sha }}
         imagepullsecrets: |
-          demo-k8s-secret
+          ${{ env.REGISTRY_NAME }}-registry-connection
+        namespace: ${{ env.NAMESPACE }}

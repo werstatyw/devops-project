@@ -48,14 +48,13 @@ jobs:
         container-registry-password: ${{ secrets.REGISTRY_PASSWORD }}
         secret-name: ${{ env.REGISTRY_NAME }}-registry-connection
         namespace: ${{ env.NAMESPACE }}
-    
-
-   
-     # Baking the helm chart to generate the manifests to deploy
+     
+    # Baking the helm chart to generate the manifests to deploy
     - uses: azure/k8s-bake@v1
       with:
-       renderEngine: 'helm2'
-       helm-version: 'latest' 
+        renderEngine: 'helm2'
+        helmChart: './my-helm-chart/' 
+        helm-version: 'latest' 
       id: bake
 
     # Deploy app to AKS

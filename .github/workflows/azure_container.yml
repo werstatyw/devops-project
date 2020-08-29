@@ -13,8 +13,8 @@ jobs:
         password: ${{ secrets.REGISTRY_PASSWORD }}
     
     - run: |
-        docker build . -t simplewersjs.azurecr.io/k8sdemo:${{ github.sha }}
-        docker push simplewersjs.azurecr.io/k8sdemo:${{ github.sha }}
+        docker build . -t simplewersjs.azurecr.io/simplewersjs:${{ github.sha }}
+        docker push simplewersjs.azurecr.io/simplewersjs:${{ github.sha }}
       
     # Set the target AKS cluster.
     - uses: Azure/aks-set-context@v1

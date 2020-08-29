@@ -21,8 +21,8 @@ jobs:
       with:
         creds: '${{ secrets.AZURE_CREDENTIALS }}'
         cluster-name: simplewersjs
-        resource-group: MC_netapp_erste_westeurope
-        id: login
+        resource-group: MyResourceGroup
+      #  id: login
         
     - uses: Azure/k8s-create-secret@v1
       with:

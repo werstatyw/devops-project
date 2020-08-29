@@ -20,8 +20,8 @@ jobs:
     - uses: Azure/aks-set-context@v1
       with:
         creds: '${{ secrets.AZURE_CREDENTIALS }}'
-        cluster-name: erste
-        resource-group: netapp
+        cluster-name: simplewersjs
+        resource-group: MC_netapp_erste_westeurope
         
     - uses: Azure/k8s-create-secret@v1
       with:

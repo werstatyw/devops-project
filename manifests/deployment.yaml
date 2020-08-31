@@ -6,7 +6,8 @@ metadata:
     app: simplewersjs
     env: dev
 spec:
-  replicas: 3
+  progressDeadlineSeconds: 120
+  replicas: 2
   selector:
     matchLabels:
       app: simplewersjs

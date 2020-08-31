@@ -17,7 +17,7 @@ spec:
         env: dev
     spec:
       containers:
-      - name: flask
+      - name: simplewersjs
         image: simplewersjs.azurecr.io/simplewersjs
         ports:
         - name:  http

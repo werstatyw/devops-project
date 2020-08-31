@@ -9,7 +9,7 @@ spec:
   replicas: 2
   selector:
     matchLabels:
-      app: flask
+      app: simplewersjs
   template:
     metadata:
       labels:

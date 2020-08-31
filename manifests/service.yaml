@@ -1,10 +1,10 @@
 kind: Service
 apiVersion: v1
 metadata:
-  name:  flask-svc
+  name:  simplewersjs-svc
 spec:
   selector:
-    app:  flask
+    app:  hello-app
   type:  LoadBalancer
   ports:
   - name:  http
